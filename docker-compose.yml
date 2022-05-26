@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  app: 
+    image: joanfont/flabiol
+    build: .
+    depends_on:
+      - redis
+    ports: 
+      - 8080:80
+    volumes:
+      - ./:/app
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port" , "80", "--reload"]
+
+  redis:
+    image: library/redis:7.0-alpine
