@@ -1,17 +1,13 @@
-from datetime import date
-from functools import lru_cache
-from typing import List
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from flabiol.config import config
-from flabiol.encoder import SongEncoder
-from flabiol.services import GetTodaySong, GetSongs
+from sonador.config import config
+from sonador.encoder import SongEncoder
+from sonador.services import GetTodaySong, GetSongs
 
 
-app = FastAPI(title="Flabiol", version="1.0")
+app = FastAPI(title="Sonador", version="1.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],

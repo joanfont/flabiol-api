@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   app: 
-    image: joanfont/flabiol
+    image: joanfont/sonador
     build: .
     depends_on:
       - redis
