@@ -24,3 +24,12 @@ class GetTodaySong:
         song = random.choice(all_songs)
         self._song_repository.set_by_date(today, song)
         return song
+
+
+class GetSongs:
+
+    def __init__(self, spotify_client: SpotifyClient=None):
+        self._spotify_client = spotify_client or CachedSpotipyClient()
+
+    def execute(self, playlist_id: str) -> list[Song]:
+        return self._spotify_client.get_playlist_songs(playlist_id)

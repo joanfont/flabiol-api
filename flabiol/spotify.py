@@ -32,7 +32,8 @@ class SpotipyClient(SpotifyClient):
         self._song_factory = song_factory or SongFactory()
     
     def get_playlist_songs(self, playlist_id: str) -> list[Song]:
-        return self._do_get_playlist_songs(playlist_id, offset=None)
+        songs = self._do_get_playlist_songs(playlist_id, offset=None)
+        return list(filter(lambda s: s.preview is not None, songs))
     
     def _do_get_playlist_songs(self, playlist_id, offset=None) -> list[Song]:
         response = self._client.playlist_tracks(playlist_id, fields='items.track,next', offset=offset)
