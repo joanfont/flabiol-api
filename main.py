@@ -3,8 +3,8 @@ from functools import lru_cache
 from typing import List
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-
 
 from flabiol.config import config
 from flabiol.encoder import SongEncoder
@@ -12,6 +12,13 @@ from flabiol.services import GetTodaySong, GetSongs
 
 
 app = FastAPI(title="Flabiol", version="1.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
 
 
 @app.get('/tracks')
