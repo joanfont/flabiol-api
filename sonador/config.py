@@ -21,6 +21,10 @@ class Config:
     @property
     def SPOTIFY_DEFAULT_PLAYLIST_ID(self):
         return decouple_config('SPOTIFY_DEFAULT_PLAYLIST_ID')
+    
+    @property
+    def SONG_ROTATION_DAYS(self):
+        return decouple_config('SONG_ROTATION_DAYS', default=None, cast=int)
 
 
 config = Config()

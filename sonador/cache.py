@@ -17,7 +17,7 @@ def remember(key_prefix, ttl, encoder=None, decoder=None):
 
             hashable_args = list(filter(lambda x: isinstance(x, str), args))
             key_parts = ['cache', key_prefix] + [func.__name__] + hashable_args
-            key = '-'.join(key_parts)
+            key = ':'.join(key_parts)
 
             cached = connection.get(key)
             if cached is not None:
