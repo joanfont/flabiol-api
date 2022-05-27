@@ -1,10 +1,12 @@
+from datetime import date
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from sonador.config import config
-from sonador.encoder import SongEncoder
-from sonador.services import GetTodaySong, GetSongs
+from sonador.services import GetSongOfDay, GetSongs
+from sonador.utils import Calendar
 
 
 app = FastAPI(title="Sonador", version="1.0")
@@ -27,9 +29,10 @@ async def tracks(playlist: str=None):
 
 
 @app.get('/today')
-async def today(playlist: str = None):
+async def today(playlist: str = None, day: date = None):
     playlist_id = playlist or config.SPOTIFY_DEFAULT_PLAYLIST_ID
-    get_today_song = GetTodaySong()
-    song = get_today_song.execute(playlist_id)
+    day = day or Calendar().today()
+    get_today_song = GetSongOfDay()
+    song = get_today_song.execute(playlist_id, day)
     
     return JSONResponse(song.as_dict())
